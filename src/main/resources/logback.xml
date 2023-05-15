@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %M %logger - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="app-info"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>apiCoppelLog.log</file>
+<!-- 		<file>logsTemplate/apilinkLog.log</file> -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %M %logger - %msg%n</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>/logs/apiCoppelLog-%d{dd-MM-yyyy}-%i.log</fileNamePattern>
+<!-- 			<fileNamePattern>logsTemplate/apilinkLog-%d{dd-MM-yyyy}-%i.log</fileNamePattern> -->
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+
+	<logger name="com.coppel.api" level="INFO" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="app-info" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="app-info" />
+	</root>
+</configuration>
