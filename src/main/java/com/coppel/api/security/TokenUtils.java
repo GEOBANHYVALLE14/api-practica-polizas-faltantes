@@ -19,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class TokenUtils {
-	private static Logger logger = LoggerFactory.getLogger(PolizasControllerImpl.class);
+	//private static Logger logger = LoggerFactory.getLogger(PolizasControllerImpl.class);
 
 	private final static String ACCESS_TOKEN_SECRET = "r1gqW4sLYCH6ra4geyuwmOx9G5px12fI";
 	// private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L;// 30
@@ -35,7 +35,7 @@ public class TokenUtils {
 		Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
 		Map<String, Object> extra = new HashMap<>();
 		extra.put("nombre", name);
-		logger.info("createToken()");
+		//logger.info("createToken()");
 		return Jwts.builder().setSubject(username).setExpiration(expirationDate).addClaims(extra)
 				.signWith(Keys.hmacShaKeyFor(ACCESS_TOKEN_SECRET.getBytes())).compact();
 
@@ -47,7 +47,7 @@ public class TokenUtils {
 					.parseClaimsJws(token).getBody();
 			
 			String username = claims.getSubject();
-			logger.info("getAuthentication()");
+			//logger.info("getAuthentication()");
 
 			return new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
 
